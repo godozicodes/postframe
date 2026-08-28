@@ -823,7 +823,8 @@ main {
 }
 
 .frame-clean .conversation-stack.has-parent {
-  justify-content: space-between;
+  justify-content: center;
+  gap: 145px;
 }
 
 .tweet-card {
@@ -1281,6 +1282,7 @@ footer p { margin: 0; text-align: center; }
   .frame-clean .conversation-stack {
     padding: 42px 30px 40px;
   }
+  .frame-clean .conversation-stack.has-parent { gap: 92px; }
   .tweet-card { padding: 18px; }
   .frame-clean .tweet-card { padding: 0; }
   .avatar-wrap,
