@@ -301,7 +301,9 @@ export default function PostGenerator() {
 
       const canvas = await html2canvas(node, {
         backgroundColor: null,
-        scale: Math.min(Math.max(window.devicePixelRatio, 2), 3),
+        scale: frame === "clean"
+          ? 1080 / node.getBoundingClientRect().width
+          : Math.min(Math.max(window.devicePixelRatio, 2), 3),
         useCORS: true,
         allowTaint: false,
         logging: false,
