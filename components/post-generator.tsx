@@ -122,6 +122,10 @@ function postDate(value: string | null) {
   }).format(date);
 }
 
+function withoutReplyTags(text: string) {
+  return text.replace(/^(?:\s*@\w+)+\s*/, "").trimStart();
+}
+
 function mediaSrc(url: string) {
   if (!url) return "";
   try {
@@ -172,6 +176,8 @@ function TweetCard({ post, theme, showMetrics, showDate, connected = false }: {
   showDate: boolean;
   connected?: boolean;
 }) {
+  const displayText = post.replyTo ? withoutReplyTags(post.text) : post.text;
+
   return (
     <article className={`tweet-card tweet-${theme} ${connected ? "tweet-connected" : ""}`}>
       <div className="tweet-head">
@@ -192,7 +198,7 @@ function TweetCard({ post, theme, showMetrics, showDate, connected = false }: {
         <MoreHorizontal className="tweet-more" size={20} aria-hidden="true" />
       </div>
 
-      <div className="tweet-text"><EmojiText text={post.text} /></div>
+      <div className="tweet-text"><EmojiText text={displayText} /></div>
       <MediaGrid media={post.media} />
 
       {showDate && post.createdAt && <div className="tweet-date">{postDate(post.createdAt)}</div>}
