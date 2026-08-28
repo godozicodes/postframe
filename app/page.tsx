@@ -30,7 +30,7 @@ export default function Home() {
         </p>
         <div className="hero-actions">
           <a href="#studio" className="hero-primary">Make one now <ArrowDown size={17} /></a>
-          <span className="hero-note">No login · No watermark · PNG export</span>
+          <span className="hero-note">No login · No API key · PNG export</span>
         </div>
 
         <div className="hero-mini-cards" aria-hidden="true">
