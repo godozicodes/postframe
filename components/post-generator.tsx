@@ -10,6 +10,7 @@ import {
   Link2,
   LoaderCircle,
   MessageCircle,
+  MoreHorizontal,
   Quote,
   RefreshCw,
   Repeat2,
@@ -187,10 +188,9 @@ function TweetCard({ post, theme, showMetrics, showDate, connected = false }: {
           </div>
           <span>@{post.author.username}</span>
         </div>
-        <span className="x-mark" aria-hidden="true">𝕏</span>
+        <button type="button" className="tweet-follow" tabIndex={-1}>Follow</button>
+        <MoreHorizontal className="tweet-more" size={20} aria-hidden="true" />
       </div>
-
-      {post.replyTo && <div className="replying-to">Replying to <span>@{post.replyTo}</span></div>}
 
       <div className="tweet-text"><EmojiText text={post.text} /></div>
       <MediaGrid media={post.media} />
@@ -226,18 +226,18 @@ export default function PostGenerator() {
   const captureRef = useRef<HTMLDivElement>(null);
   const [url, setUrl] = useState("");
   const [mode, setMode] = useState<Mode>("auto");
-  const [frame, setFrame] = useState<FrameStyle>("velvet");
-  const [cardTheme, setCardTheme] = useState<CardTheme>("dark");
+  const [frame, setFrame] = useState<FrameStyle>("clean");
+  const [cardTheme, setCardTheme] = useState<CardTheme>("light");
   const [showParent, setShowParent] = useState(true);
-  const [showMetrics, setShowMetrics] = useState(true);
-  const [showDate, setShowDate] = useState(true);
+  const [showMetrics, setShowMetrics] = useState(false);
+  const [showDate, setShowDate] = useState(false);
   const [result, setResult] = useState<ApiResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [downloading, setDownloading] = useState(false);
   const [error, setError] = useState("");
 
   const selected = result?.post || DEMO_REPLY;
-  const parent = result ? (result.root || result.parent) : DEMO_POST;
+  const parent = result ? (result.parent || result.root) : DEMO_POST;
   const isReply = result ? result.isReply : true;
   const parentVisible = mode !== "single" && isReply && showParent && Boolean(parent);
 
@@ -412,7 +412,7 @@ export default function PostGenerator() {
 
         <div className="preview-stage">
           <div ref={captureRef} className={`capture-frame frame-${frame}`}>
-            <div className={`conversation-stack ${parentVisible ? "has-parent" : ""}`}>
+            <div className={`conversation-stack ${parentVisible ? "has-parent" : "single-post"}`}>
               {parentVisible && parent && (
                 <TweetCard post={parent} theme={cardTheme} showMetrics={showMetrics} showDate={showDate} connected />
               )}
